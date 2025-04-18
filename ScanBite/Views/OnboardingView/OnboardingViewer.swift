@@ -28,6 +28,12 @@ struct OnboardingViewer: View {
                 .padding(.horizontal)
             
         }
+        .navigationDestination(isPresented: $moveNext) {
+            
+            QuestionaireView()
+                .navigationBarBackButtonHidden()
+            
+        }
     }
 }
 

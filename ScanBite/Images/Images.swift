@@ -50,5 +50,31 @@ enum ImageName: String {
         Image("leftSideVinyls")
     }
     
+    //MARK: Questionaire
+    
+    
+    static var gainWeight: Image {
+        
+        Image("gainWeight")
+    }
+    
+    
+    static var maintainWeight: Image {
+        
+        Image("maintainWeight")
+    }
+    
+    
+    static var loseWeight: Image {
+        
+        Image("loseWeight")
+    }
+    
+    static var dumbBell: Image {
+        
+        Image("dumbells")
+    }
+    
+    
     
 }
