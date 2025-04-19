@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct WorkoutDetailView: View {
-    @State var desiredWeight = 128
-    @State var workoutSelection = ""
+    @Binding var user : User
     var action : () -> Void
     var body: some View {
         screenView
@@ -35,27 +34,27 @@ extension WorkoutDetailView{
             
             VStack(spacing: 20){
                 
-                workoutButton(image: ImageName.dumbBell, title: "0-2", description: "Occasional Workouts", isSelected: workoutSelection == "0-2") {
+                workoutButton(image: ImageName.dumbBell, title: "0-2", description: "Occasional Workouts", isSelected: user.workout == "0-2") {
                     
                     withAnimation {
-                        self.workoutSelection = "0-2"
+                        self.user.workout = "0-2"
                     }
 
                 }
                 
-                workoutButton(image: ImageName.dumbBell, title: "3-5", description: "Occasional Workouts", isSelected: workoutSelection == "3-5") {
+                workoutButton(image: ImageName.dumbBell, title: "3-5", description: "Occasional Workouts", isSelected: user.workout == "3-5") {
               
                     withAnimation {
                         
-                        self.workoutSelection = "3-5"
+                        self.user.workout = "3-5"
                     }
                 }
                 
-                workoutButton(image: ImageName.dumbBell, title: "6+", description: "Occasional Workouts", isSelected: workoutSelection == "6+") {
+                workoutButton(image: ImageName.dumbBell, title: "6+", description: "Occasional Workouts", isSelected: user.workout == "6+") {
                     
                     withAnimation {
                         
-                        self.workoutSelection = "6+"
+                        self.user.workout = "6+"
                         
                     }
 
@@ -69,14 +68,13 @@ extension WorkoutDetailView{
             Spacer()
            
             AppButton(title: "Next") {
-                
-                withAnimation {
+
                     action()
-                }
+                
                 
             }
-            .disabled(workoutSelection.isEmpty)
-            .opacity(workoutSelection.isEmpty ? 0.4 : 1)
+            .disabled(self.user.workout.isEmpty)
+            .opacity(self.user.workout.isEmpty ? 0.4 : 1)
             
         }
         
@@ -151,7 +149,7 @@ extension WorkoutDetailView{
 }
 
 #Preview {
-    WorkoutDetailView(){
+    WorkoutDetailView(user: .constant(User())){
         
     }
 }

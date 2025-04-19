@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct HeightWeightView: View {
-    @State var selectedFeet = "5"
-    @State var selectedInches = "6"
-    @State var selectedWeight = "60"
+    @Binding var user : User
+
     var action: () -> Void
     var body: some View {
         screenView
@@ -47,9 +46,9 @@ extension HeightWeightView{
             
             AppButton(title: "Next") {
                 
-                withAnimation {
+
                     action()
-                }
+                
 
             }
             
@@ -70,9 +69,9 @@ extension HeightWeightView{
             
             HStack{
                 
-                CustomPickerView(selection: $selectedFeet, range: feetRange.map({String($0)}), unit: "ft")
+                CustomPickerView(selection: $user.feet, range: feetRange.map({String($0)}), unit: "ft")
                 
-                CustomPickerView(selection: $selectedInches, range: inchesRange.map({String($0)}), unit: "in")
+                CustomPickerView(selection: $user.inches, range: inchesRange.map({String($0)}), unit: "in")
                 
             }
             
@@ -87,7 +86,7 @@ extension HeightWeightView{
             Text("Weight")
                 .font(.semiBold(size: 14))
             
-            CustomPickerView(selection: $selectedWeight, range: (44...331).map { "\($0)" }, unit: "lbs")
+            CustomPickerView(selection: $user.weight, range: (44...331).map { "\($0)" }, unit: "lbs")
             
         }
         
@@ -96,7 +95,7 @@ extension HeightWeightView{
 }
 
 #Preview {
-    HeightWeightView(){
+    HeightWeightView(user: .constant(User())){
         
     }
 }

@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct GoalSelectionView: View {
-    
-    @State var goal : Goal = .none
+    @Binding var user : User
     @State private var imageAnimation: Bool = false
     var action: () -> Void
     var body: some View {
@@ -17,6 +16,7 @@ struct GoalSelectionView: View {
             .onAppear(){
                 viewDidLoad()
             }
+
     }
 }
 
@@ -39,22 +39,22 @@ extension GoalSelectionView{
             
             VStack{
                 
-                goalSelectionButton(image: ImageName.loseWeight, title: "Lose Weight", isSelected: goal == .lose, alignment: .trailing){
+                goalSelectionButton(image: ImageName.loseWeight, title: "Lose Weight", isSelected: user.goal == Goal.lose.rawValue, alignment: .trailing){
                     
-                    self.goal = .lose
+                    self.user.goal = Goal.lose.rawValue
                     
                 }
                 .swipeAnimation(startAnimation: imageAnimation, xOffset: 1)
                 
-                goalSelectionButton(image: ImageName.maintainWeight, title: "Maintain Weight", isSelected: goal == .maintain, alignment: .leading){
+                goalSelectionButton(image: ImageName.maintainWeight, title: "Maintain Weight", isSelected: user.goal == Goal.maintain.rawValue, alignment: .leading){
                     
-                    self.goal = .maintain
+                    self.user.goal = Goal.maintain.rawValue
                 }
                 .swipeAnimation(startAnimation: imageAnimation, xOffset: -1)
                 
-                goalSelectionButton(image: ImageName.gainWeight, title: "Gain Weight", isSelected: goal == .gain, alignment: .trailing){
+                goalSelectionButton(image: ImageName.gainWeight, title: "Gain Weight", isSelected: user.goal == Goal.gain.rawValue, alignment: .trailing){
                     
-                    self.goal = .gain
+                    self.user.goal = Goal.gain.rawValue
                 }
                 .swipeAnimation(startAnimation: imageAnimation, xOffset: 1)
                 
@@ -63,13 +63,13 @@ extension GoalSelectionView{
             Spacer()
             
             AppButton(title: "Next") {
-                withAnimation {
+
                     self.action()
-                }
+                
                 
             }
-            .opacity(goal == .none ? 0.4 : 1)
-            .disabled(goal == .none)
+            .opacity(self.user.goal.isEmpty ? 0.4 : 1)
+            .disabled(self.user.goal.isEmpty)
             
         }
         
@@ -160,7 +160,7 @@ extension GoalSelectionView{
 }
 
 #Preview {
-    GoalSelectionView(){
+    GoalSelectionView(user: .constant(User())){
         
     }
 }

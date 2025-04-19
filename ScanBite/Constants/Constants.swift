@@ -46,3 +46,19 @@ enum Goal: String{
 }
 
 
+enum NutrientType: String, CaseIterable {
+    case calories = "Calories"
+    case protein = "Protein"
+    case fat = "Fats"
+    case carbs = "Carbs"
+    
+    var icon: String {
+        switch self {
+        case .calories: return  "caloriesIcon"
+        case .carbs: return "caloriesIcon"
+        case .protein: return "caloriesIcon"
+        case .fat: return  "caloriesIcon"
+        }
+    }
+    
+}

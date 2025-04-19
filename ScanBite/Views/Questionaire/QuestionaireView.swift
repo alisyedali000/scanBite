@@ -8,12 +8,27 @@
 import SwiftUI
 
 struct QuestionaireView: View {
+    @StateObject var vm = OnboardingViewModel()
     @State var totalIndex = 7
     @State var selectedIndex = 1
-    
+    @State var moveNext = false
     var body: some View {
-        screenView
-            .padding(.horizontal)
+        
+        ZStack{
+            
+            screenView
+                .padding(.horizontal)
+            
+            if vm.showLoader{
+                PreparingPlanView()
+            }
+        }
+        .navigationDestination(isPresented: $moveNext) {
+            
+            RecommendedCaloriesView(personalisedPlan: $vm.plan)
+                .navigationBarBackButtonHidden()
+            
+        }
     }
 }
 
@@ -30,43 +45,54 @@ extension QuestionaireView{
             switch selectedIndex{
                 
             case 1:
-                GenderSelectionView(){
-                    self.selectedIndex += 1
+                GenderSelectionView(user: $vm.userDetails){
+                    self.selectedIndex = 2
                 }
                 
             case 2:
-                AgeSelectionView(){
-                    self.selectedIndex += 1
+                AgeSelectionView(user: $vm.userDetails){
+                    self.selectedIndex = 3
                 }
                 
             case 3:
-                HeightWeightView(){
-                    self.selectedIndex += 1
+                HeightWeightView(user: $vm.userDetails){
+                    self.selectedIndex = 4
                 }
                 
             case 4:
-                GoalSelectionView(){
-                    self.selectedIndex += 1
+                GoalSelectionView(user: $vm.userDetails){
+                    
+                    if vm.userDetails.goal != Goal.maintain.rawValue{
+                        self.selectedIndex = 5
+                    } else {
+                        self.selectedIndex = 6
+                    }
+                    
                 }
                 
             case 5:
-                WorkoutDetailView(){
-                    self.selectedIndex += 1
+                DesiredWeightView(user: $vm.userDetails){
+                    self.selectedIndex = 6
                 }
                 
             case 6:
-                DesiredWeightView(){
-                    self.selectedIndex += 1
+                
+                WorkoutDetailView(user: $vm.userDetails){
+                    self.selectedIndex = 7
                 }
                 
             case 7:
-                DietSelectionView(){
-                    self.selectedIndex += 1
+                DietSelectionView(user: $vm.userDetails){
+                    debugPrint(vm.userDetails)
+                    Task{
+                        await vm.preparePersonalizedPlan()
+                        self.moveNext = true
+                    }
                 }
             default:
                 EmptyView()
             }
-
+            
         }
         
     }
@@ -88,12 +114,19 @@ extension QuestionaireView{
                 }
             }
             
-            BackNavigation(){
+            BackNavigation {
                 withAnimation {
-                    self.selectedIndex -= 1
+                    if selectedIndex > 1 {
+                        if selectedIndex == 6 && vm.userDetails.goal == Goal.maintain.rawValue {
+                            
+                            selectedIndex = 4
+                        } else {
+                            selectedIndex -= 1
+                        }
+                    }
                 }
-
             }
+            
             
         }
         

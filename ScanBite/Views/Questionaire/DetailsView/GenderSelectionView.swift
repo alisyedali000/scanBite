@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GenderSelectionView: View {
-    @State var gender = ""
+    @Binding var user : User
     var onContinue : () -> Void
     var body: some View {
         screenView
@@ -33,8 +33,8 @@ extension GenderSelectionView{
             VStack{
                 
                 ForEach(genders, id: \.self) { gender in
-                    genderSelectionButton(title: gender, isSelected: self.gender == gender){
-                        self.gender = gender
+                    genderSelectionButton(title: gender, isSelected: self.user.gender == gender){
+                        self.user.gender = gender
                     }
                 }
                 
@@ -45,12 +45,12 @@ extension GenderSelectionView{
             
             AppButton(title: "Next"){
                 
-                withAnimation(.easeInOut, {
-                    onContinue()
-                })
+
+                onContinue()
+
             }
-            .disabled(self.gender.isEmpty)
-            .opacity(self.gender.isEmpty ? 0.5 : 1)
+            .disabled(self.user.gender.isEmpty)
+            .opacity(self.user.gender.isEmpty ? 0.5 : 1)
         }
         
 
@@ -87,7 +87,7 @@ extension GenderSelectionView{
 }
 
 #Preview {
-    GenderSelectionView(){
+    GenderSelectionView(user: .constant(User())){
         
     }
 }

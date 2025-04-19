@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DesiredWeightView: View {
-    @State var desiredWeight = 0
+    @Binding var user : User
     var action : () -> Void
     var body: some View {
         screenView
@@ -37,7 +37,7 @@ extension DesiredWeightView{
                 
                 HStack(alignment: .bottom, spacing: 0){
                     
-                    Text(desiredWeight > 0 ? "\(desiredWeight)" : "-- ")
+                    Text(user.desiredWeight > 0 ? "\(user.desiredWeight)" : "-- ")
                         .font(.semiBold(size: 49.89))
                     
                     Text("lbs")
@@ -47,15 +47,15 @@ extension DesiredWeightView{
                 
                 
                 
-                SliderRuler(returnValue: $desiredWeight, startPoint: 44, endPoint: 331)
+                SliderRuler(returnValue: $user.desiredWeight, startPoint: 44, endPoint: 331)
             }
             Spacer()
             
             AppButton(title: "Next") {
                 action()
             }
-            .disabled(desiredWeight == 0)
-            .opacity(desiredWeight == 0 ? 0.4 : 1)
+            .disabled(user.desiredWeight == 0)
+            .opacity(user.desiredWeight == 0 ? 0.4 : 1)
 
         }
         
@@ -64,7 +64,7 @@ extension DesiredWeightView{
 }
 
 #Preview {
-    DesiredWeightView(){
+    DesiredWeightView(user: .constant(User())){
         
     }
 }

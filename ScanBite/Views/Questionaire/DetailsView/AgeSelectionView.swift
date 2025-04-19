@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct AgeSelectionView: View {
-    @State var selectedMonth = "June"
-    @State var selectedDay = "15"
-    @State var selectedYear = "1990"
+    @Binding var user : User
+
     var action : () -> Void
     var body: some View {
         screenView
+
     }
 }
 
@@ -36,11 +36,11 @@ extension AgeSelectionView{
             
             HStack{
                 
-                CustomPickerView(selection: $selectedMonth , range: months, unit: "")
+                CustomPickerView(selection: $user.birthMonth , range: months, unit: "")
                 
-                CustomPickerView(selection: $selectedDay , range: days, unit: "")
+                CustomPickerView(selection: $user.birthDay , range: days, unit: "")
                 
-                CustomPickerView(selection: $selectedYear , range: years.map({String($0)}), unit: "")
+                CustomPickerView(selection: $user.birthYear , range: years.map({String($0)}), unit: "")
             }
             
             if let age = calculatedAge{
@@ -56,9 +56,9 @@ extension AgeSelectionView{
             Spacer()
             
             AppButton(title: "Next") {
-                withAnimation {
+
                     action()
-                }
+                
             }
             
         }
@@ -73,7 +73,7 @@ extension AgeSelectionView{
         let calendar = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM yyyy"
-        let dateString = "\(selectedMonth) \(selectedYear)"
+        let dateString = "\(user.birthMonth) \(user.birthYear)"
         
         if let date = dateFormatter.date(from: dateString),
            let range = calendar.range(of: .day, in: .month, for: date) {
@@ -86,7 +86,7 @@ extension AgeSelectionView{
     var calculatedAge: Int? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM d yyyy"
-        let dateString = "\(selectedMonth) \(selectedDay) \(selectedYear)"
+        let dateString = "\(user.birthMonth) \(user.birthDay) \(user.birthYear)"
         
         guard let birthDate = dateFormatter.date(from: dateString) else {
             return nil
@@ -94,6 +94,10 @@ extension AgeSelectionView{
         
         let now = Date()
         let ageComponents = Calendar.current.dateComponents([.year], from: birthDate, to: now)
+        DispatchQueue.main.async {
+            self.user.age = "\(ageComponents.year ?? 0)"
+        }
+       
         return ageComponents.year
     }
 
@@ -101,7 +105,7 @@ extension AgeSelectionView{
 }
 
 #Preview {
-    AgeSelectionView(){
+    AgeSelectionView(user: .constant(User())){
         
     }
 }

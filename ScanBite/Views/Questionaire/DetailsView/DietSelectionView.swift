@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DietSelectionView: View {
-    @State var selectedDiet = ""
+    @Binding var user : User
     @State private var appearedIndices: Set<Int> = []
 
     var action: () -> Void
@@ -38,9 +38,9 @@ extension DietSelectionView{
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 108), spacing: 10)], spacing: 10) {
                 
                 ForEach(Array(diets.enumerated()), id: \.1.name) { index, diet in
-                    dietGridButton(title: diet.name, image: diet.icon, isSelected: selectedDiet == diet.name) {
+                    dietGridButton(title: diet.name, image: diet.icon, isSelected: user.diet == diet.name) {
                         
-                        self.selectedDiet = diet.name
+                        user.diet = diet.name
                         
                     }
                     .opacity(appearedIndices.contains(index) ? 1 : 0)
@@ -58,10 +58,10 @@ extension DietSelectionView{
             Spacer()
             
             AppButton(title: "Next") {
-                
+                self.action()
             }
-            .disabled(selectedDiet.isEmpty)
-            .opacity(selectedDiet.isEmpty ? 0.4 : 1)
+            .disabled(user.diet.isEmpty)
+            .opacity(user.diet.isEmpty ? 0.4 : 1)
         }
         
     }
@@ -108,7 +108,7 @@ extension DietSelectionView{
 }
 
 #Preview {
-    DietSelectionView(){
+    DietSelectionView(user : .constant(User())){
         
     }
 }
