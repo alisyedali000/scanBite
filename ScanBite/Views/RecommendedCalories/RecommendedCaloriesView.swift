@@ -10,9 +10,16 @@ import Charts
 
 struct RecommendedCaloriesView: View {
     @Binding var personalisedPlan : PersonalizedPlanModel
+    @State var moveNext = false
     var body: some View {
         screenView
             .padding(.horizontal)
+            .navigationDestination(isPresented: $moveNext) {
+                
+                PostOnboardingView1()
+                    .navigationBarBackButtonHidden()
+                
+            }
     }
 }
 
@@ -37,7 +44,7 @@ extension RecommendedCaloriesView{
             
             AppButton(title: "Get Started") {
                 
-                
+                self.moveNext = true
                 
             }
             
@@ -188,13 +195,17 @@ extension RecommendedCaloriesView{
 extension RecommendedCaloriesView{
     
     func calculatePercentage(totalCalories: Double, nutrient: NutrientType, grams: Double) -> Double {
+        
         let caloriesPerGram: Double
         
         switch nutrient {
+            
         case .carbs, .protein:
             caloriesPerGram = 4
+            
         case .fat:
             caloriesPerGram = 9
+            
         case .calories:
             return 0
         }

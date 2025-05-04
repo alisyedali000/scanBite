@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct ScanBiteApp: App {
@@ -13,7 +14,7 @@ struct ScanBiteApp: App {
         WindowGroup {
             NavigationStack{
                 ContentView()
-            }
+            }.modelContainer(for: RestaurantEntity.self)
         }
     }
 }

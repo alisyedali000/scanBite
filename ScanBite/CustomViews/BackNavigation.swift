@@ -31,6 +31,14 @@ extension BackNavigation{
                 
                 Image(systemName: "chevron.left")
                     .foregroundStyle(Color.black)
+                    .padding()
+                    .background(
+                        
+                        Circle()
+                            .frame(height: 30)
+                            .foregroundStyle(Color.gray.opacity(0.1))
+                        
+                    )
             }
             
             

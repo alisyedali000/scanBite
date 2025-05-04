@@ -33,14 +33,14 @@ struct User: Codable {
     var loggedFats: Double
     var loggedCarbs: Double
     
-//    var loggedMeals : [Meal] //recently logged meal
+    var loggedMeals : [Meal] //recently logged meal
     enum CodingKeys: String, CodingKey{
         
         case gender, age, birthYear, birthMonth, birthDay, height, diet, workout, goal, feet, inches, weight, desiredWeight,  calories, carbs, fats, protein, loggedCaloris,
         loggedProtein,
         loggedFats,
         loggedCarbs
-//        case loggedMeals
+        case loggedMeals
         
     }
     
@@ -66,7 +66,7 @@ struct User: Codable {
         self.loggedProtein = 0
         self.loggedFats = 0
         self.loggedCarbs = 0
-//        self.loggedMeals = [Meal]()
+        self.loggedMeals = [Meal]()
     }
 
 }

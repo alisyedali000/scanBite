@@ -138,7 +138,7 @@ class PromptGenerator {
         }
         
         
-        ***This is the scanned food menu data***
+        ***This is the scanned food menu data, you may not find it organised but try to figure it out in any possible way***
         \(scannedMenuText)
 
         

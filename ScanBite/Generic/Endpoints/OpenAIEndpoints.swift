@@ -98,7 +98,7 @@ extension OpenAIEndpoints : Endpoint {
             return [
                 "model": "gpt-4o",
                 "messages": [
-                    ["role": "system", "content": "You are a nutritionist."],
+                    ["role": "system", "content": "You are a highly advanced nutritional assistant specializing in food analysis. Your task is to extract all meal data from the provided unstructured text, return JSON with nutrition analysis and alternatives based on the user's dietary goal."],
                     ["role": "user", "content": prompt]
                 ],
                 "temperature": 0.0
@@ -109,7 +109,7 @@ extension OpenAIEndpoints : Endpoint {
            return [
                 "model": "gpt-4o",
                 "messages": [
-                    ["role": "system", "content": "You are a nutritionist."],
+                    ["role": "system", "content": "You are a highly advanced nutritional assistant specializing in food analysis. Your task is to extract all meal data from the provided unstructured text, return JSON with nutrition analysis and alternatives based on the user's dietary goal."],
                     ["role": "user", "content": prompt],
                     [
                         "role": "user",

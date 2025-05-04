@@ -158,3 +158,61 @@ extension UIApplication {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
+
+
+extension String {
+    // Function to extract integer from a string (e.g., "~12g" -> 12)
+    var extractInt: Int {
+        let filtered = self.filter { $0.isNumber } // Keep only digits
+        return Int(filtered) ?? 0
+    }
+    
+   
+}
+
+extension String {
+    // Function to extract a Double from a string (e.g., "~12.5g" -> 12.5)
+    var extractDouble: Double {
+        let filtered = self.filter { $0.isNumber || $0 == "." } // Keep only digits & decimal point
+        return Double(filtered) ?? 0.0
+    }
+}
+
+
+extension Double {
+    func formattedGrams() -> String {
+        if self < 1 {
+            return String(format: "~%.3fg", self) // Keep 3 decimal places for small numbers
+        } else {
+            return String(format: "~%.0fg", self) // Round for larger numbers
+        }
+    }
+
+}
+
+extension UIImage: @retroactive Identifiable {
+    public var id: String { UUID().uuidString }
+}
+
+
+
+// MARK: - Cropping Function
+extension UIImage {
+    func crop(to rect: CGRect) -> UIImage? {
+        guard let cgImage = self.cgImage?.cropping(to: rect) else { return nil }
+        return UIImage(cgImage: cgImage)
+    }
+}
+
+
+extension UIImage {
+    func toData() -> Data? {
+        return self.jpegData(compressionQuality: 0.8) // Adjust quality as needed
+    }
+}
+
+extension Data {
+    func toImage() -> UIImage? {
+        return UIImage(data: self)
+    }
+}

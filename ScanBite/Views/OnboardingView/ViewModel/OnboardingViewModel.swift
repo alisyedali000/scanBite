@@ -40,6 +40,7 @@ extension OnboardingViewModel: NetworkManagerService{
                 
                 debugPrint(parsedData)
                 self.plan = parsedData
+                self.saveUser() // have a  check here bypassed for now, save user when personalised plan is being ready
                 if isBeingEdited ?? false {
                     self.saveUser()
                     self.showAlert(message: "Your personalized plan is updated!")
@@ -63,7 +64,7 @@ extension OnboardingViewModel: NetworkManagerService{
         self.userDetails.carbs = self.plan.carbs
         self.userDetails.fats = self.plan.fat
         self.userDetails.protein = self.plan.protein
-//        UserDefaultManager.shared.set(user: userDetails)
+        UserDefaultManager.shared.set(user: userDetails)
         
     }
     
