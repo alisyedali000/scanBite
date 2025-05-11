@@ -27,9 +27,13 @@ extension RestaurantCard{
                 
                 Text(restaurant.name)
                     .font(.bold(size: 14))
+                    .foregroundStyle(Color.black)
+                    .multilineTextAlignment(.leading)
                 
                 Text(restaurant.address)
                     .font(.regular(size: 11))
+                    .foregroundStyle(Color.black)
+                    .multilineTextAlignment(.leading)
                 
             }
             

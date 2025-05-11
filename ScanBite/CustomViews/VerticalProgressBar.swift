@@ -16,26 +16,33 @@ struct VerticalProgressBar: View {
     var width: CGFloat?
     var color: Color
     var cornerRadius: CGFloat = 8
-
+    let image: Image
     
     var body: some View {
         
                 
                 VStack{
                     
-                    ZStack(alignment: .bottom) {
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .foregroundStyle(Color(hex: "#F5F5F5"))
-                            .frame(width: width, height: 140)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: cornerRadius)
-                                    .stroke(Color.gray.opacity(0.2), lineWidth: 0) // optional border
-                            )
-
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .fill(color)
-                            .frame(width: width, height: 140 * animatedProgress)
-                            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                    ZStack(alignment: .top){
+                        ZStack(alignment: .bottom) {
+                            
+                            RoundedRectangle(cornerRadius: cornerRadius)
+                                .foregroundStyle(Color(hex: "#F5F5F5"))
+                                .frame(width: width, height: 140)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: cornerRadius)
+                                        .stroke(Color.gray.opacity(0.2), lineWidth: 0) // optional border
+                                )
+                            
+                            RoundedRectangle(cornerRadius: cornerRadius)
+                                .fill(color)
+                                .frame(width: width, height: 140 * animatedProgress)
+                                .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+                        }
+                        
+                        image
+                            .padding(.top)
+                        
                     }
 
                     
@@ -94,6 +101,6 @@ extension VerticalProgressBar{
 
 #Preview{
     
-    VerticalProgressBar(totalCalories: 100, nutrient: .carbs, grams: 2, width: 109, color: .blue)
+    VerticalProgressBar(totalCalories: 100, nutrient: .carbs, grams: 2, width: 109, color: .blue, image: ImageName.carbs)
     
 }

@@ -75,6 +75,69 @@ enum ImageName: String {
         Image("dumbells")
     }
     
+    //MARK: Nutrition Inforamtion
+    
+    static var calcium: Image {
+        
+        Image("calcium")
+    }
+    
+    static var carbs: Image {
+        
+        Image("carbs")
+    }
+    
+    static var cholestrol: Image {
+        
+        Image("cholestrol")
+    }
+    
+    static var fats: Image {
+        
+        Image("fats")
+    }
+    
+    static var Fibers: Image {
+        
+        Image("Fibers")
+    }
+    
+    
+    static var iron: Image {
+        
+        Image("iron")
+    }
+    
+    static var protein: Image {
+        
+        Image("protein")
+    }
+    
+    static var saturatedFats: Image {
+        
+        Image("saturatedFats")
+    }
+    
+    static var sodium: Image {
+        
+        Image("sodium")
+    }
+    
+    static var sugars: Image {
+        
+        Image("sugars")
+    }
+    
+    static var vitaminA: Image {
+        
+        Image("calcium")
+    }
+    
+    static var vitaminC: Image {
+        
+        Image("vitaminC")
+    }
+    
     
     
 }
